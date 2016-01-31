@@ -41,9 +41,14 @@ public class Pedido {
 	
 	public void adicionarItem(ItemPedido item){
 		if (itens == null) {
+			
 			itens = new ArrayList<ItemPedido>();
 		}
 		itens.add(item);
+	}
+	
+	public Integer totalItens(){
+		return itens == null ? 0 : itens.size();
 	}
 }
 

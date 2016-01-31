@@ -18,8 +18,12 @@ public class Principal {
 		ItemPedido geladeira = new ItemPedido(1, 1500, "Duplex");
 		pedido.adicionarItem(geladeira);
 		
+		ItemPedido fogao = new ItemPedido(2, 900.00, "6 bocas");
+		pedido.adicionarItem(fogao);
+		
+		
 		System.out.println(pedido);
-		//System.out.println();
+		System.out.println("Total de itens no Pedido: " + pedido.totalItens());
 		//System.out.println(p2);
 	}
 
