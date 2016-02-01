@@ -9,7 +9,7 @@ public class Principal {
 
 	public static void main(String[] args) {
 
-		Pedido pedido = new Pedido(1L, 50.0, 10.5,  TipoPedido.VAREJO );
+		Pedido pedido = new Pedido(1L, 50.0, 10.5,  TipoPedido.ATACADO );
 		
 		//Pedido p2 = new Pedido(2L, "Urgente", 50.0,10.5, 164.4 );
 		
@@ -19,7 +19,7 @@ public class Principal {
 		ItemPedido geladeira = new ItemPedido(1, 1500, "Duplex");
 		pedido.adicionarItem(geladeira);
 		
-		ItemPedido fogao = new ItemPedido(2, 800.00, "6 bocas");
+		ItemPedido fogao = new ItemPedido(1, 800.00, "6 bocas");
 		pedido.adicionarItem(fogao);
 			
 		

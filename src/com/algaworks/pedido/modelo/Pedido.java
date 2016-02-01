@@ -4,6 +4,10 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.algaworks.pedido.desconto.CalculadoraDesconto;
+import com.algaworks.pedido.desconto.CalculadoraDescontoAtacado;
+import com.algaworks.pedido.desconto.CalculadoraDescontoVarejo;
+
 public class Pedido {
 	
 	private Long numero;
@@ -57,30 +61,22 @@ public class Pedido {
 	public Integer totalItens(){
 		return itens == null ? 0 : itens.size();
 	}
+	
 	private void recalcularValorTotal(){
 		valorTotal =  itens.stream()
 									.mapToDouble(i -> i.getValorUnitario() * i.getQuantidade())
 									.sum();
 	}
+	
 	public Integer recalcularTotalItens(){
 		return itens.stream()
 						.mapToInt(i -> i.getQuantidade())
 						.sum();
 	}
 	
-	
 	public double calcularDesconto(){
-		if (tipo.equals(TipoPedido.VAREJO)) {
-			return valorTotal * 0.05;
-		}else if (tipo.equals(TipoPedido.ATACADO)){
-			return valorTotal * 0.15;
-		}
-		return 0;
+		CalculadoraDesconto calculadoraDesconto = tipo.calculadora();
+		return calculadoraDesconto.calcular(valorTotal);
+		
 	}
 }
-
-
-
-
-
-
