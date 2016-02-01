@@ -10,45 +10,72 @@ public class Pedido {
 	private  LocalDate dataCriação;
 	private String observacao;
 	private double valorFrete;
-	private double valorDesconto;
 	private double valorTotal;
+	private TipoPedido tipo;
 	
 	private Cliente cliente;
 	private List<ItemPedido> itens;
+	
 
-	public Pedido(Long numero,  String observacao, double valorFrete, double valorDesconto,
-			double valorTotal) {
+	public Pedido(Long numero,  double valorFrete, double valorDesconto,
+			 TipoPedido tipo) {
 		super();
 		this.numero = numero;
 		this.dataCriação = LocalDate.now();
-		this.observacao = observacao;
 		this.valorFrete = valorFrete;
-		this.valorDesconto = valorDesconto;
-		this.valorTotal = valorTotal;
+		this.tipo =  tipo;
 	}
 
-	
 	@Override
 	public String toString() {
-		return "Pedido: numero=" + numero + ", dataCriação=" + dataCriação + ", observacao=" + observacao
-				+ ", valorFrete=" + valorFrete + ", valorDesconto=" + valorDesconto + ", valorTotal=" + valorTotal
-				+ ", cliente=" + cliente + ", itens=" + itens;
+		return "Pedido [numero=" + numero + ", dataCriação=" + dataCriação + ", observacao=" + observacao
+				+ ", valorFrete=" + valorFrete + ", tipo=" + tipo + ", cliente="
+				+ cliente + ", itens=" + itens + "]";
 	}
 
 	public void setCliente(Cliente cliente){
 		this.cliente = cliente;
 	}
 	
+	public String getObservacao() {
+		return observacao;
+	}
+
+	public void setObservacao(String observacao) {
+		this.observacao = observacao;
+	}
+
 	public void adicionarItem(ItemPedido item){
 		if (itens == null) {
 			
 			itens = new ArrayList<ItemPedido>();
 		}
 		itens.add(item);
+		recalcularValorTotal();
 	}
 	
 	public Integer totalItens(){
 		return itens == null ? 0 : itens.size();
+	}
+	private void recalcularValorTotal(){
+		valorTotal =  itens.stream()
+									.mapToDouble(i -> i.getValorUnitario() * i.getQuantidade())
+									.sum();
+	}
+	public Integer recalcularTotalItens(){
+		return itens.stream()
+						.mapToInt(i -> i.getQuantidade())
+						.sum();
+	}
+	
+	
+	public double calcularDesconto(){
+		if (tipo.equals(TipoPedido.VAREJO)) {
+			return valorTotal * 0.05;
+		}else if (tipo.equals(TipoPedido.ATACADO)){
+			return valorTotal * 0.15;
+		}
+		return 0;
 	}
 }
 

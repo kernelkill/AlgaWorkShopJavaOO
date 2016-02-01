@@ -13,10 +13,24 @@ public class ItemPedido {
 		this.valorUnitario = valorUnitario;
 		this.produto = produto;
 	}
+	
 	@Override
 	public String toString() {
 		return "ItemPedido [quantidade=" + quantidade + ", valorUnitario=" + valorUnitario + ", produto=" + produto
 				+ "]";
+	}
+	
+	public Integer getQuantidade() {
+		return quantidade;
+	}
+	public void setQuantidade(Integer quantidade) {
+		this.quantidade = quantidade;
+	}
+	public double getValorUnitario() {
+		return valorUnitario;
+	}
+	public void setValorUnitario(double valorUnitario) {
+		this.valorUnitario = valorUnitario;
 	}
 	
 }
